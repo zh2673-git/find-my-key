@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>找调儿 FindMyKey · 测你的 key，哼唱变 do re mi</title>
+  <link rel="stylesheet" href="/src/interfaces/style.css" />
+</head>
+<body>
+  <header>
+    <h1>找调儿 <span class="en">FindMyKey</span></h1>
+    <p class="tagline">唱名不需要绝对音感，只需要旋律的形状</p>
+  </header>
+
+  <main>
+    <!-- ── 状态条：贯穿两步的全局档案（v1.3 向导式两步流） ── -->
+    <div class="status-bar" id="status-bar">
+      <span id="status-my-key" class="status-item">我的调：未固定</span>
+      <span id="status-range" class="status-item">音域：未测</span>
+      <button id="status-clear" class="ghost mini" hidden>清除我的调</button>
+    </div>
+
+    <!-- ── 主卡（v1.8 融合为一）：哼一段 → 自动找调 + 翻译唱名，一次完成 ── -->
+    <section class="card" id="hum-card">
+      <h2>哼一段，调和唱名一起出来 <span class="done-tag" id="hum-done" hidden>✓ 翻译完成</span></h2>
+      <p class="hint">哼一段你熟悉的旋律，<b>长短不限</b>，唱完点「停止」。自动找出你的调、把旋律翻译成 do re mi；点<b>唱名方块</b>听你哼的原声，点<b>钢琴键</b>听标准音，比一比。</p>
+      <div class="row">
+        <button id="hum-btn" class="primary">开始哼唱</button>
+        <button id="demo-btn" class="ghost">示例音频（无麦克风）</button>
+        <span id="hum-status" class="status"></span>
+        <span id="hum-hz" class="hz">— Hz</span>
+      </div>
+      <canvas id="cal-canvas" width="720" height="200"></canvas>
+      <div id="hum-result"></div>
+
+      <details class="freq-card tools-card">
+        <summary>调不准？辅助工具：唱音阶定 do · 滑音测音域</summary>
+        <p class="hint" id="cal-hint"></p>
+        <div class="row">
+          <button id="cal-mode-scale" class="ghost mini mode">唱音阶找 do（推荐）</button>
+          <button id="cal-mode-gliss" class="ghost mini mode">滑音测跨度</button>
+          <button id="cal-btn" class="primary">开始唱音阶</button>
+          <button id="cal-demo" class="ghost mini">示例音阶（无麦克风）</button>
+          <span id="cal-status" class="status"></span>
+          <span id="cal-hz" class="hz">— Hz</span>
+        </div>
+        <div id="cal-result"></div>
+      </details>
+      <div class="piano-area">
+        <label class="pick-do"><input type="checkbox" id="pick-do" /> 点琴键选 do（小调歌曲：点你想当 6 的键）</label>
+        <div id="piano-mount"></div>
+        <p class="hint" id="piano-hint">键上的数字就是<b>当前调的真实简谱</b>：染橙色的键是 do（1），换调后所有数字自动重排——所以用任何 key 你都能照着数字弹。<b>哼唱分析后</b>数字会标成那首歌的调。白色键是 1234567，黑色键是带升降号的音。</p>
+        <div id="freq-mount"></div>
+        <div class="row my-key-row">
+          <button id="my-key-save" class="ghost mini">★ 记住当前调为「我的调」</button>
+          <span id="my-key-status" class="status"></span>
+        </div>
+        <p class="hint">修正过调之后，点「记住」可以更新你的固定调——哼唱翻译会一直按它算，不再变来变去。</p>
+      </div>
+    </section>
+
+    <p class="footnote">音频仅在本页面内存中分析，不存储、不上传。建议 Chrome / Edge。</p>
+  </main>
+
+  <script type="module" src="/src/interfaces/ui.ts"></script>
+</body>
+</html>

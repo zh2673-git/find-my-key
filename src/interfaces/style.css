@@ -1,0 +1,265 @@
+/* 时空层级：数据接口（interfaces）—— 暖色调单页样式 */
+:root {
+  --bg: #faf6f0;
+  --card: #ffffff;
+  --ink: #3b322c;
+  --ink-soft: #8a7a6d;
+  --accent: #e07a3f;
+  --accent-soft: #fbeadf;
+  --line: #ece2d6;
+  --good: #4c8b5c;
+  --warn: #c2503c;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+header { max-width: 760px; margin: 0 auto; padding: 28px 20px 6px; }
+header h1 { margin: 0; font-size: 26px; }
+header .en { color: var(--accent); font-size: 18px; font-weight: 500; }
+.tagline { color: var(--ink-soft); margin: 4px 0 0; }
+
+main { max-width: 760px; margin: 0 auto; padding: 12px 20px 40px; display: grid; gap: 16px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 10px rgba(120, 90, 60, 0.05);
+}
+.card h2 { margin: 0 0 6px; font-size: 18px; }
+.hint { color: var(--ink-soft); font-size: 14px; margin: 0 0 12px; }
+
+.row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+button {
+  border: none; border-radius: 10px; padding: 10px 18px;
+  font-size: 15px; cursor: pointer; transition: transform .05s ease;
+}
+button:active { transform: scale(0.97); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button.primary { background: var(--accent); color: #fff; }
+button.ghost { background: var(--accent-soft); color: var(--accent); }
+
+.status { color: var(--ink-soft); font-size: 14px; }
+canvas { width: 100%; height: 160px; margin-top: 12px; border: 1px solid var(--line); border-radius: 10px; background: #fffdf9; }
+
+/* ── 结果区 ── */
+.result-block { margin-top: 14px; }
+.range-bar { height: 26px; border-radius: 8px; background: var(--accent-soft); position: relative; margin: 10px 0 4px; }
+.range-fill { position: absolute; top: 0; bottom: 0; border-radius: 8px; background: var(--accent); opacity: .85; }
+.range-label { font-size: 13px; color: var(--ink-soft); display: flex; justify-content: space-between; }
+
+.solfege-line { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; font-size: 22px; }
+.sol {
+  position: relative; display: inline-block; padding: 8px 8px 4px; min-width: 34px;
+  text-align: center; background: #fffdf9; border: 1px solid var(--line); border-radius: 8px;
+}
+/* 副标：钢琴实际键名（v1.8.5）——简谱数字与钢琴键一一对应的可见桥梁 */
+.sol i {
+  display: block; font-style: normal; font-size: 10px; font-weight: 500;
+  color: var(--ink-soft); letter-spacing: .3px;
+}
+
+/* ── 和弦带 + 节奏条（v1.9）→ 旋律对齐网格（v1.10）：三行同比例伸缩，边界自动对齐 ── */
+.mg-row {
+  display: flex; margin-top: 6px;
+}
+/* 音间空隙的时间垫片（v1.12.2）：flex-grow=空隙时长，三行同位同宽——
+   去掉 CSS gap 是关键：固定像素间隔会让各行扣除量不同，边界错位（和弦块越界罩住下一块首音） */
+.mg-gap {
+  flex-basis: 0; min-width: 2px;
+}
+.mg-row:first-child { margin-top: 0; }
+.chord {
+  flex-basis: 0; min-width: 46px; padding: 7px 4px 5px;
+  font-size: 15px; font-weight: 800; color: var(--ink);
+  background: #fffdf9; border: 1px solid var(--line); border-radius: 8px;
+  cursor: pointer; text-align: center; transition: transform .12s, border-color .12s;
+}
+/* ＋和弦伴奏（v1.12.4）：重听原声的叠加选项 */
+.raw-opt {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 11px; color: var(--ink-soft); cursor: pointer; user-select: none;
+  white-space: nowrap;
+}
+.raw-opt input { accent-color: var(--accent); margin: 0; cursor: pointer; }
+
+.chord i {
+  display: block; font-style: normal; font-size: 10px; font-weight: 500;
+  color: var(--ink-soft); margin-top: 1px; white-space: nowrap;
+}
+/* ×N = 该段按最短音节拍该弹几次（v1.12.1）——弹奏信息优先展示 */
+.chord i b { font-weight: 800; color: var(--accent); }
+.chord:hover { border-color: var(--accent); }
+.chord.on { border-color: var(--accent); background: #fdeee2; transform: scale(1.05); }
+/* 简谱行（v1.10）：chip 伸缩∝时值，与和弦/节奏行对齐 */
+.chip-row .sol {
+  flex-basis: 0; min-width: 26px; padding: 8px 2px 4px;
+}
+.chip-row .sol i { font-size: 9px; }
+.rnote {
+  flex-basis: 0; min-width: 14px; padding: 4px 2px;
+  font-size: 11px; font-weight: 700; color: var(--ink-soft);
+  background: rgba(224, 122, 63, .12); border-radius: 4px;
+  text-align: center; white-space: nowrap; overflow: hidden;
+}
+/* 钢琴和弦多键高亮（v1.10） */
+.pkey.chord-active { background: #f6c9a8 !important; box-shadow: inset 0 0 0 2px var(--accent); }
+.sol.hi::before, .sol.lo::before {
+  content: '·'; position: absolute; left: 50%; transform: translateX(-50%);
+  font-size: 22px; line-height: .5;
+}
+.sol.hi::before { top: -2px; }
+.sol.lo::before { bottom: -2px; }
+.sol.off { color: var(--warn); }
+.sol.long { border-color: var(--accent); }
+
+.tonic-row { margin-top: 12px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 14px; }
+select { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); font-size: 14px; background: #fff; }
+.note-detail { margin-top: 8px; font-size: 13px; color: var(--ink-soft); }
+.key-tag { display: inline-block; background: var(--accent-soft); color: var(--accent); border-radius: 6px; padding: 2px 8px; font-size: 13px; margin-left: 6px; }
+
+.error { color: var(--warn); font-size: 14px; margin-top: 10px; }
+.footnote { color: var(--ink-soft); font-size: 12px; text-align: center; }
+
+/* ── v1.1 大白话翻译层（docs/08）── */
+.describe {
+  margin-top: 10px; padding: 10px 14px; font-size: 14px; line-height: 1.9;
+  background: #fffdf9; border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0;
+  white-space: pre-line;
+}
+.sol { cursor: pointer; }
+.sol.on { background: var(--accent-soft); border-color: var(--accent); }
+
+/* ── v1.1 钢琴对照键盘 ── */
+.piano-area { margin-top: 16px; }
+.pick-do {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; cursor: pointer; user-select: none;
+}
+.pick-do input { accent-color: var(--accent); width: 15px; height: 15px; }
+#piano-mount { overflow-x: auto; margin-top: 10px; padding-bottom: 4px; }
+.piano { position: relative; display: flex; height: 150px; min-width: 620px; user-select: none; }
+.pkey { position: relative; }
+.pkey.white {
+  flex: 1; background: #fffdf9; border: 1px solid var(--line); border-top: none;
+  border-radius: 0 0 6px 6px; margin-right: -1px; cursor: pointer;
+}
+.pkey.black {
+  position: absolute; top: 0; height: 62%; z-index: 2;
+  background: #4a3f37; border-radius: 0 0 5px 5px; cursor: pointer;
+}
+.pkey.white.hit { background: #f7e8d8; }
+.pkey.black.hit { background: var(--accent); }
+.pkey.white.active { background: var(--accent-soft); box-shadow: inset 0 0 0 2px var(--accent); }
+.pkey.black.active { background: var(--accent); }
+.plabel {
+  position: absolute; bottom: 22px; left: 0; right: 0; text-align: center;
+  font-size: 18px; font-weight: 700; color: var(--ink); pointer-events: none;
+}
+.pkey.black .plabel { bottom: 8px; font-size: 12px; font-weight: 600; color: #f5ead9; }
+.pkey.alt .plabel { font-size: 14px; font-weight: 600; }
+.pkey.black.alt .plabel { font-size: 11px; }
+/* do 键（简谱"1"）：染色底 + 强调数字，换调后自动移动到新的 do 上（v1.4.1） */
+.pkey.white.do-key { background: linear-gradient(#fffdf9 55%, var(--accent-soft)); }
+.pkey.white.do-key .plabel { color: var(--accent); font-size: 21px; font-weight: 800; }
+.psub {
+  position: absolute; bottom: 4px; left: 0; right: 0; text-align: center;
+  font-size: 10px; color: var(--ink-soft); pointer-events: none;
+}
+#piano-hint { margin-top: 8px; }
+/* 音区自适应（v1.5）：范围扩宽时钢琴横向滚动 */
+#piano-mount { overflow-x: auto; padding-bottom: 4px; }
+/* 实时频率读数（v1.5） */
+.hz {
+  display: inline-block; min-width: 130px;
+  font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent);
+}
+/* 两步合并主卡（v1.7）：卡内小节标题 + 分隔 */
+.sub {
+  margin: 18px 0 8px; padding-left: 10px;
+  border-left: 4px solid var(--accent);
+  font-weight: 800; font-size: 15px; color: var(--ink);
+}
+/* 实时音高刻度图（v1.8.1）：清晰化——保持纵横比只缩不放（放大拉伸会糊），圆角边框 */
+#cal-canvas {
+  display: block; max-width: 100%; height: auto; margin-top: 10px;
+  border: 1px solid var(--line); border-radius: 10px; background: #fffcf7;
+}
+/* 频率对照卡（v1.6）：折叠表，随当前调刷新 */
+.freq-card {
+  margin-top: 10px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--paper2); overflow: hidden;
+}
+.freq-card summary {
+  padding: 10px 14px; cursor: pointer; font-weight: 700; color: var(--accent);
+  user-select: none;
+}
+.freq-card table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.freq-card th, .freq-card td { padding: 7px 12px; text-align: left; border-top: 1px solid var(--line); }
+.freq-card th { font-size: 12px; color: var(--ink-soft); font-weight: 600; border-top: none; }
+.freq-card td.num { font-variant-numeric: tabular-nums; }
+.freq-card .dot { font-size: 11px; vertical-align: super; }
+.freq-card .hint { padding: 0 14px 12px; }
+
+/* ── v1.1.1 我的调 ── */
+button.mini { padding: 4px 12px; font-size: 13px; }
+.my-key-row { margin-top: 10px; }
+.tonic-pick { margin-right: 2px; }
+
+/* ── v1.2 校准模式切换 ── */
+button.mode.active { background: var(--accent); color: #fff; }
+
+/* ── v1.3 向导式两步流：状态条 + 步骤衔接 ── */
+.status-bar {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px 16px; margin-bottom: 14px;
+  background: var(--card, #fff); border: 1px solid var(--border, #e5e0d5); border-radius: 10px;
+  font-size: 14px;
+}
+.status-item { color: var(--ink, #333); }
+#status-my-key { font-weight: 600; }
+.done-tag {
+  display: inline-block; margin-left: 6px; padding: 1px 8px;
+  background: var(--accent, #c96f4a); color: #fff; border-radius: 999px; font-size: 13px;
+}
+.card.flash { animation: flash-card 1.2s ease-out; }
+.sub.flash { animation: flash-card 1.2s ease-out; border-radius: 8px; }
+@keyframes flash-card {
+  0% { box-shadow: 0 0 0 4px rgba(201, 111, 74, .55); }
+  100% { box-shadow: 0 0 0 0 rgba(201, 111, 74, 0); }
+}
+
+/* ── v1.4 旋律回放 + 跟弹指引 ── */
+.seq-row { margin-top: 8px; }
+.pkey { position: relative; }
+.pkey .gbadge {
+  position: absolute; top: 3px; left: 50%; transform: translateX(-50%);
+  min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px;
+  background: var(--accent); color: #fff;
+  font-size: 10px; line-height: 16px; text-align: center; font-weight: 600;
+  z-index: 3; pointer-events: none;
+}
+.pkey.black .gbadge { background: var(--accent); }
+.pkey.guide { animation: guide-pulse 1s ease-in-out infinite; z-index: 2; }
+@keyframes guide-pulse {
+  0%, 100% { box-shadow: inset 0 0 0 3px rgba(224, 122, 63, .45); }
+  50% { box-shadow: inset 0 0 0 6px rgba(224, 122, 63, .85); }
+}
+/* 已点过的键：染色定格（v1.4.2——气泡只显示"下一个"，进度靠染色表达） */
+.pkey.white.gdone { background: #f2d9c4; }
+.pkey.black.gdone { background: #8a6650; }
+.pkey.gdone .plabel { color: var(--ink-soft); }
+.pkey.wrong { animation: shake .3s; }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
