@@ -6,3 +6,5 @@ dist/
 *.tmp
 *-out.txt
 .tmp/
+# 开发方法论文档，由 project-dev-skill 生成（https://github.com/zh2673-git/project-dev-skill）——仅本地使用，不入库
+project-development-prompt.md
