@@ -10,6 +10,14 @@
 
 面向不懂乐理的小白：全程大白话叙述，配钢琴键盘对照验证，无需懂任何术语。
 
+## 视频 demo（60 秒）
+
+<p align="center">
+  <video src="docs/img/findmykey-promo.mp4" controls muted playsinline width="720"></video>
+</p>
+
+旁白带你走完「哼一段 → 调性/简谱 → 自动伴奏 → 跟着琴键弹」全流程；本片由 [make-video](https://github.com/zh2673-git/make-video)（讲稿驱动的微视频生成工具）生成。
+
 ## 特色：哼唱自动产生伴奏
 
 <p align="center">

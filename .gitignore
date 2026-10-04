@@ -8,3 +8,6 @@ dist/
 .tmp/
 # 开发方法论文档，由 project-dev-skill 生成（https://github.com/zh2673-git/project-dev-skill）——仅本地使用，不入库
 project-development-prompt.md
+
+# 本地宣传片副本（仓库内使用 docs/img/findmykey-promo.mp4）
+/findmykey-promo.mp4
