@@ -13,7 +13,7 @@
 ## 视频 demo（60 秒）
 
 <p align="center">
-  <a href="https://raw.githubusercontent.com/zh2673-git/find-my-key/master/docs/img/findmykey-promo.mp4"><b>▶ 观看 60 秒宣传片</b></a>
+  <video src="https://github.com/user-attachments/assets/d0a9a4ea-036a-4a3c-b63e-d276afd151bc" controls muted playsinline width="720"></video>
 </p>
 
 旁白带你走完「哼一段 → 调性/简谱 → 自动伴奏 → 跟着琴键弹」全流程。本片由 [make-video](https://github.com/zh2673-git/make-video)（讲稿驱动的微视频生成工具）生成。
