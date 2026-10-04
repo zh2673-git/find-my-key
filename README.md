@@ -13,10 +13,10 @@
 ## 视频 demo（60 秒）
 
 <p align="center">
-  <video src="docs/img/findmykey-promo.mp4" controls muted playsinline width="720"></video>
+  <a href="docs/img/findmykey-promo.mp4"><b>▶ 观看 60 秒宣传片</b></a>
 </p>
 
-旁白带你走完「哼一段 → 调性/简谱 → 自动伴奏 → 跟着琴键弹」全流程；本片由 [make-video](https://github.com/zh2673-git/make-video)（讲稿驱动的微视频生成工具）生成。
+旁白带你走完「哼一段 → 调性/简谱 → 自动伴奏 → 跟着琴键弹」全流程——点击链接，GitHub 内置播放器直接播放。本片由 [make-video](https://github.com/zh2673-git/make-video)（讲稿驱动的微视频生成工具）生成。
 
 ## 特色：哼唱自动产生伴奏
 
